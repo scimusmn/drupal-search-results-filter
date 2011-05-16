@@ -1,0 +1,63 @@
+<?php
+/**
+ * Results filter module
+ *
+ * @author Sarah German
+ * @version 1.0
+ * @copyright Copyright (c) 2011, Science Museum of Minnesota
+ *
+ */
+
+/**
+ * Implementation of hook_help().
+ * Display help and module information
+ * @param path which path of the site we're displaying help
+ * @param arg array that holds the current path as would be returned from arg() function
+ * @return help text for the path
+*/
+function results_filter_help($path, $arg) {
+  $output = '';  
+  switch ($path) {
+    case "admin/help#results_filter":
+      $output = '<p>'.  t("This module adds a filter to core search results to allow the user to filter by content type.") .'</p>';
+    break;
+  }
+  return $output;
+}
+
+/**
+  * Implementation of hook_init().
+  * Add JS to the search results page.
+*/
+function results_filter_init() {
+  if (arg(0) == 'search' && arg(2)) {
+    drupal_add_js(drupal_get_path('module', 'results_filter') . '/results_filter.js');
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ * Use tpl.php files from this module instead of the core search templates.
+ */
+function results_filter_theme() {
+  return array(
+    'search_result' => array(
+      'template' => 'search-result',
+    ),
+    'search_results' => array(
+      'template' => 'search-results',
+    ),
+  );
+}
+
+/**
+ * Convert spaces to dashes. Used for turning the returned content type 
+ * into a CSS-friendly class name.
+ */
+function results_filter_spaces_to_dashes($str) {
+   // convert spaces to '-', remove characters that are not alphanumeric
+   // or a '-', combine multiple dashes (i.e., '---') into one dash '-'.
+   $str = ereg_replace("[-]+", "-", ereg_replace("[^a-z0-9-]", "",
+   strtolower( str_replace(" ", "-", $str) ) ) );
+   return $str;
+}

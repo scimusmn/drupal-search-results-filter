@@ -1,0 +1,5 @@
+name = "Results filter"
+description = "Adds a filter to the core search module's results page to filter results by content type."
+core = 6.x
+package = User interface
+dependencies[] = search
