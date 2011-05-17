@@ -69,7 +69,6 @@ function results_filter_theme() {
  * Add a result counter to search output.
  */
 function results_filter_preprocess_search_results(&$variables) {
-
   //Get search terms
   $keys = search_get_keys();   
     
@@ -90,7 +89,6 @@ function results_filter_preprocess_search_results(&$variables) {
   // set this html to the $variables
   $variables['results_filter_search_totals'] = "Displaying $start - $end of $total results for <b>$keys</b>";
 }
-
 
 /**
  * Convert spaces to dashes. Used for turning the returned content type 

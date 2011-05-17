@@ -4,7 +4,7 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   var $types = [];
 
   // loop through results divs and add their class names to the $types array
-  $('dl.search-results div').not('#sort-search').each(function() {
+  $('dl.search-results div').not('#search-tools').not('#search-tools div').each(function() {
     $types.push(this.className);
   });
  
@@ -25,7 +25,7 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   $('#types').change(function() {
     $destination = $(this).val(); // get the destination by looking at the selected option
     
-    $('dl.search-results div').not('#sort-search').hide(); // hide everything
+    $('dl.search-results div').not('#search-tools').not('#search-tools div').hide(); // hide everything
     
     if ($destination != 'all') {
       $('dl.search-results div.'+$destination).fadeIn('fast'); // show desired results if we're filtering    

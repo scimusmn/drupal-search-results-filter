@@ -21,12 +21,15 @@
  * @see template_preprocess_search_results()
  */
 ?>
-
 <dl class="search-results <?php print $type; ?>-results">
-  <div id="sort-search">
-    <p>Filter by type: <select id="types"><option value="all">Show all</option></select></p>
+  <div id="search-tools">  
+    <div id="sort-search">
+      <p>Filter by type: <select id="types"><option value="all">Show all</option></select></p>
+    </div>
+    <div id="results-counter">
+      <?php print $results_filter_search_totals; ?>
+    </div>  
   </div>  
   <?php print $search_results; ?>
 </dl>
-<?php print $results_filter_search_totals; ?> 
 <?php print $pager; ?>
