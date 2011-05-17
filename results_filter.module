@@ -36,6 +36,20 @@ function results_filter_init() {
 }
 
 /**
+ * Implemenation of hook_form_alter().
+ * AJAXify the search form. See http://drupal.org/node/349961
+ */
+function results_filter_form_alter(&$form, $form_state, $form_id) {
+  switch($form_id) {
+  case 'search_form': 
+    $form['#ajax'] = array(
+      'enabled' => TRUE
+    );
+    break;
+  }
+}
+
+/**
  * Implementation of hook_theme().
  * Use tpl.php files from this module instead of the core search templates.
  */
