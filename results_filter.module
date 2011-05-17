@@ -80,11 +80,11 @@ function results_filter_preprocess_search_results(&$variables) {
   $currentPage = $_REQUEST['page']+1;
 
   // get the total number of results from the $GLOBALS
-  $total = $GLOBALS['pager_total_items'][0];
+  $total = number_format($GLOBALS['pager_total_items'][0]);
     
   // perform calculation
-  $start = 10*$currentPage-9;
-  $end = $itemsPerPage * $currentPage;
+  $start = number_format(10*$currentPage-9);
+  $end = number_format($itemsPerPage * $currentPage);
   if ($end>$total) $end = $total;
     
   // set this html to the $variables
