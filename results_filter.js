@@ -23,16 +23,14 @@ Drupal.behaviors.results_filterBehavior = function (context) {
 
   // Filter search results
   $('#types').change(function() {
-    $destination = $(this).val(); // get the destination by looking at the selected option
-    
-    $('dl.search-results div').not('#search-tools').not('#search-tools div').hide(); // hide everything
-    
-    if ($destination != 'all') {
-      $('dl.search-results div.'+$destination).fadeIn('fast'); // show desired results if we're filtering    
-    } else {
-      $('dl.search-results div').fadeIn('fast'); // show all results if "Show all" is selected
-    }
-  
+    $query = $('input#edit-keys').val(); // store the original query
+    $adv_query = $(this).val(); // get the desired type by looking at the selected option
+    $adv_query_type = ''; // TODO: We need the machine name of the content type, not the label.
+
+    $('input#edit-keys').val($query + ' type:' + $adv_query); // populate the search form with the adv query
+     
+    $('input#edit-submit').click(); // submit the form with the new query
+
   });
 
 };
