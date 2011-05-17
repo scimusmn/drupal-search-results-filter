@@ -27,7 +27,7 @@
       <p>Filter by type: <select id="types"><option value="all">Show all</option></select></p>
     </div>
     <div id="results-counter">
-      <?php print $results_filter_search_totals; ?>
+      <p><?php print $results_filter_search_totals; ?></p>
     </div>  
   </div>  
   <?php print $search_results; ?>

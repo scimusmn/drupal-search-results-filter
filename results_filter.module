@@ -87,7 +87,7 @@ function results_filter_preprocess_search_results(&$variables) {
   if ($end>$total) $end = $total;
     
   // set this html to the $variables
-  $variables['results_filter_search_totals'] = "Displaying $start - $end of $total results for <b>$keys</b>";
+  $variables['results_filter_search_totals'] = "Displaying $start - $end of $total results for <strong>$keys</strong>";
 }
 
 /**
