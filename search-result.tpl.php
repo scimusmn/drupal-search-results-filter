@@ -49,7 +49,7 @@
 
 <div class="<?php print results_filter_spaces_to_dashes($info_split['type']); ?>">
 <dt class="title">
-  <h4><a href="<?php print $url; ?>"><?php print $title; ?></a></h4>
+  <a href="<?php print $url; ?>"><?php print $title; ?></a>
 </dt>
 <dd>
   <?php if ($snippet) : ?>
