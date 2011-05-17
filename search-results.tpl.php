@@ -28,4 +28,5 @@
   </div>  
   <?php print $search_results; ?>
 </dl>
+<?php print $results_filter_search_totals; ?> 
 <?php print $pager; ?>
