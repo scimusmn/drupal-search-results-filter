@@ -3,3 +3,4 @@ description = "Adds a filter to the core search module's results page to filter 
 core = 6.x
 package = User interface
 dependencies[] = search
+dependencies[] = ajax
