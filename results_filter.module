@@ -30,8 +30,11 @@ function results_filter_help($path, $arg) {
   * Add JS to the search results page.
 */
 function results_filter_init() {
-  if (arg(0) == 'search' && arg(2)) {
-    drupal_add_js(drupal_get_path('module', 'results_filter') . '/results_filter.js');
+  if (arg(0) == 'search') {
+    drupal_add_css(drupal_get_path('module', 'results_filter') . '/results_filter.css');    
+    if (arg(2)) {
+      drupal_add_js(drupal_get_path('module', 'results_filter') . '/results_filter.js');
+    }
   }
 }
 

@@ -3,8 +3,11 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   // create an array for class names
   var $types = [];
 
+  // set a variable to represent the search results
+  var $results = $('dl.search-results div').not('#search-tools').not('#search-tools div');
+
   // loop through results divs and add their class names to the $types array
-  $('dl.search-results div').not('#search-tools').not('#search-tools div').each(function() {
+  $($results).each(function() {
     $types.push(this.className);
   });
  
@@ -23,13 +26,19 @@ Drupal.behaviors.results_filterBehavior = function (context) {
 
   // Filter search results
   $('#types').change(function() {
+    
+    // hide content and show a preloader while the new search runs
+    $($results).add('ul.pager').fadeOut('fast');   
+    $('#search-tools').after('<div id="ajaxLoader">&nbsp;</div>').css("display", "block"); 
+
     $query = $('input#edit-keys').val(); // store the original query
     $adv_query = $(this).val(); // get the desired type by looking at the selected option
     $adv_query_type = ''; // TODO: We need the machine name of the content type, not the label.
 
     $('input#edit-keys').val($query + ' type:' + $adv_query); // populate the search form with the adv query
      
-    $('input#edit-submit').click(); // submit the form with the new query
+    $('input#edit-submit').trigger('click'); // submit the form with the new query
+    $('#edit-submit').attr('disabled', 'disabled'); // disable the button while the results load    
 
   });
 
