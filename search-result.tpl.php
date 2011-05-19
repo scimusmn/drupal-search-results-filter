@@ -46,8 +46,7 @@
  * @see template_preprocess_search_result()
  */
 ?>
-
-<div class="<?php print results_filter_spaces_to_dashes($info_split['type']); ?>">
+<div class="<?php print $machine_type; ?>">
 <dt class="title">
   <a href="<?php print $url; ?>"><?php print $title; ?></a>
 </dt>

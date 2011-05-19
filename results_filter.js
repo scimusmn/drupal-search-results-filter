@@ -19,7 +19,7 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   // Build and output the filter links
   var $options = '';
   $.each($links, function(index, value) {   
-    $label = value.replace("-", " "); // convert dashes to spaces for the link text
+    $label = value.replace("_", " "); // convert underscores to spaces for the link text
     $options += '<option value="'+ value +'">' + $label + '</option>'; // markup for the link
   }); 
   $($options).appendTo('#types'); // put the options into the select list

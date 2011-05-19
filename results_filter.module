@@ -68,7 +68,21 @@ function results_filter_theme() {
 }
 
 /**
- * Implementation of hook_preprocess_search().
+ * Get the machine name of the result's content type
+ */
+function results_filter_preprocess_search_result(&$variables) {
+  $result = $variables['result']; // results array
+  $node = $result['node']; // node array 
+
+  if (!empty($result['type'])) {
+    // set variable used for assigning result class names and populating filter select list
+    $variables['machine_type'] = $node->type; 
+  }
+
+}
+
+
+/**
  * Add a result counter to search output.
  */
 function results_filter_preprocess_search_results(&$variables) {
@@ -91,16 +105,4 @@ function results_filter_preprocess_search_results(&$variables) {
     
   // set this html to the $variables
   $variables['results_filter_search_totals'] = "Displaying $start - $end of $total results for <strong>$keys</strong>";
-}
-
-/**
- * Convert spaces to dashes. Used for turning the returned content type 
- * into a CSS-friendly class name.
- */
-function results_filter_spaces_to_dashes($str) {
-   // convert spaces to '-', remove characters that are not alphanumeric
-   // or a '-', combine multiple dashes (i.e., '---') into one dash '-'.
-   $str = ereg_replace("[-]+", "-", ereg_replace("[^a-z0-9-]", "",
-   strtolower( str_replace(" ", "-", $str) ) ) );
-   return $str;
 }
