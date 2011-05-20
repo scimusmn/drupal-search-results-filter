@@ -11,9 +11,6 @@
 /**
  * Implementation of hook_help().
  * Display help and module information
- * @param path which path of the site we're displaying help
- * @param arg array that holds the current path as would be returned from arg() function
- * @return help text for the path
 */
 function results_filter_help($path, $arg) {
   $output = '';  
@@ -27,13 +24,26 @@ function results_filter_help($path, $arg) {
 
 /**
   * Implementation of hook_init().
-  * Add JS to the search results page.
+  * Add CSS and JS to the search page.
 */
 function results_filter_init() {
-  if (arg(0) == 'search') {
-    drupal_add_css(drupal_get_path('module', 'results_filter') . '/results_filter.css');    
-    if (arg(2)) {
-      drupal_add_js(drupal_get_path('module', 'results_filter') . '/results_filter.js');
+  $path = drupal_get_path('module', 'results_filter');
+  
+  if (arg(0) == 'search') {    
+     
+    drupal_add_css($path . '/results_filter.css');    
+
+    // only load the JS if it's a results page
+    if (arg(2)) { 
+      
+      // pass the filter array over to JS on the results page
+      /** drupal_add_js(array(
+        'results_filter' => array(
+          'filters' => results_filter_filters(), // TODO: the array in the to-do above 
+        )
+      ), 'setting');**/
+
+      drupal_add_js($path . '/results_filter.js');
     }
   }
 }
@@ -50,6 +60,7 @@ function results_filter_form_alter(&$form, $form_state, $form_id) {
     );
     break;
   }
+
 }
 
 /**
@@ -72,7 +83,7 @@ function results_filter_theme() {
  */
 function results_filter_preprocess_search_result(&$variables) {
   $result = $variables['result']; // results array
-  $node = $result['node']; // node array 
+  $node = $result['node']; // node array
 
   if (!empty($result['type'])) {
     // set variable used for assigning result class names and populating filter select list
@@ -81,11 +92,11 @@ function results_filter_preprocess_search_result(&$variables) {
 
 }
 
-
 /**
  * Add a result counter to search output.
  */
 function results_filter_preprocess_search_results(&$variables) {
+
   //Get search terms
   $keys = search_get_keys();   
     
@@ -104,5 +115,5 @@ function results_filter_preprocess_search_results(&$variables) {
   if ($end>$total) $end = $total;
     
   // set this html to the $variables
-  $variables['results_filter_search_totals'] = "Displaying $start - $end of $total results for <strong>$keys</strong>";
+  $variables['results_filter_search_totals'] = t("Displaying $start - $end of $total results for <strong>$keys</strong>");
 }
