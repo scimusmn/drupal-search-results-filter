@@ -6,7 +6,8 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   // set a variable to represent the search results
   var $results = $('dl.search-results div').not('#search-tools').not('#search-tools div');
 
-  // loop through results divs and add their class names to the $types array
+  // loop through results divs and add their class names to the types array
+  // TODO: let's be serious, this should probs be done with PHP before the results appear
   $($results).each(function() {
     types.push(this.className);
   });
@@ -36,8 +37,27 @@ Drupal.behaviors.results_filterBehavior = function (context) {
 
     $('input#edit-keys').val($query + ' type:' + $adv_query); // populate the search form with the adv query 
     $('#search-form').submit(); // submit the form with the new query
-    $('#edit-submit').attr('disabled', 'disabled'); // disable the button while the results load        
+    $('#edit-submit').attr('disabled', 'disabled'); // disable the button while the results load
 
   });
+
+  // check if the search has already been filtered
+  // activate the reset link if that's true
+  if ($('#reset').length) {
+    $('#reset').live('click', function() {    
+      
+      //TODO: Check the box for "type:" and clear that (plus following string) out,
+              // then re-submit the search. 
+      
+      // hide content and show a preloader while the new search runs
+      $($results).add('ul.pager').fadeOut('fast');   
+      $('#search-tools').after('<div id="ajaxLoader">&nbsp;</div>').css("display", "block"); 
+            
+      $('#search-form').submit(); // submit the form with the new query
+      $('#edit-submit').attr('disabled', 'disabled'); // disable the button while the results load
+    
+    });
+  }
+
 
 };

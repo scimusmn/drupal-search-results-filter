@@ -24,7 +24,7 @@
 <dl class="search-results <?php print $type; ?>-results">
   <div id="search-tools">  
     <div id="sort-search">
-      <p>Filter by type: <select id="types"><option value="all">Show all</option></select></p>
+      <?php print $results_filter_search_tools; ?>    
     </div>
     <div id="results-counter">
       <p><?php print $results_filter_search_totals; ?></p>

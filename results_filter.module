@@ -2,6 +2,10 @@
 /**
  * Results filter module
  *
+ * This module AJAXifys the Drupal core search form and adds
+ * a filter to the results that allows the user to filter by 
+ * content type.
+ *
  * @author Sarah German
  * @version 1.0
  * @copyright Copyright (c) 2011, Science Museum of Minnesota
@@ -94,6 +98,7 @@ function results_filter_preprocess_search_result(&$variables) {
 
 /**
  * Add a result counter to search output.
+ * Show the proper search tool (filter or reset).
  */
 function results_filter_preprocess_search_results(&$variables) {
 
@@ -116,4 +121,21 @@ function results_filter_preprocess_search_results(&$variables) {
     
   // set this html to the $variables
   $variables['results_filter_search_totals'] = t("Displaying $start - $end of $total results for <strong>$keys</strong>");
+
+  // Check the URL to see if we're viewing a results page or a filtered results page.
+  // Use this to decide whether to show the filter selector or the Reset link.
+    
+  $uri = ($_SERVER['REQUEST_URI']); // look at the URL  
+  $match = '%';
+  $pos = strpos($uri, $match); // check it for a percentage sign - that indicates a filtered search has run
+
+  // show the filter options if it's the intial search; show a reset link if the filter has already run
+  if ($pos === false) {
+    $variables['results_filter_search_tools']  = '<p>' . t('Filter by type:');
+    $variables['results_filter_search_tools'] .= '<select id="types"><option value="all">' . t('Show all') . '</option></select></p>'; 
+  } else {
+    $variables['results_filter_search_tools']  = '<p id="reset">' . t('Show all') . '</p>'; 
+  } 
+
 }
+
