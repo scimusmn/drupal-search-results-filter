@@ -7,7 +7,8 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   var $results = $('dl.search-results div').not('#search-tools').not('#search-tools div');
 
   // loop through results divs and add their class names to the types array
-  // TODO: let's be serious, this should probs be done with PHP before the results appear
+  // TODO: let's be serious, this should probs be done with PHP before the results appear -
+  // here, we're only getting content types of things on the first page. 
   $($results).each(function() {
     types.push(this.className);
   });
@@ -58,6 +59,5 @@ Drupal.behaviors.results_filterBehavior = function (context) {
     
     });
   }
-
 
 };
