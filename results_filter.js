@@ -31,8 +31,8 @@ Drupal.behaviors.results_filterBehavior = function (context) {
     
     // hide content and show a preloader while the new search runs
     $($results).add('ul.pager').fadeOut('fast');   
-    $('#search-tools').after('<div id="ajaxLoader">&nbsp;</div>').css("display", "block"); 
-
+    $('#search-tools').after('<div id="ajaxLoader">&nbsp;</div>').css("display", "block");
+    
     $query = $('input#edit-keys').val(); // store the original query
     $adv_query = $(this).val(); // get the desired type by looking at the selected option
 
@@ -48,7 +48,15 @@ Drupal.behaviors.results_filterBehavior = function (context) {
     $('#reset').live('click', function() {    
       
       //TODO: Check the box for "type:" and clear that (plus following string) out,
-              // then re-submit the search. 
+              // then re-submit the search.
+
+      $adv_query = $('input#edit-keys').val();
+      query_regex = /.*type:/;
+      orig_query_pre = String(query_regex.exec($adv_query));
+      orig_query = orig_query_pre.replace("type:", "");
+
+ 
+      $('input#edit-keys').val(orig_query); 
       
       // hide content and show a preloader while the new search runs
       $($results).add('ul.pager').fadeOut('fast');   
