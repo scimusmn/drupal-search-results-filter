@@ -47,15 +47,13 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   if ($('#reset').length) {
     $('#reset').live('click', function() {    
       
-      //TODO: Check the box for "type:" and clear that (plus following string) out,
-              // then re-submit the search.
-
+      // Remove the type:* string from the advanced search
       $adv_query = $('input#edit-keys').val();
       query_regex = /.*type:/;
       orig_query_pre = String(query_regex.exec($adv_query));
       orig_query = orig_query_pre.replace("type:", "");
 
- 
+      // Populate the search box with the original search query
       $('input#edit-keys').val(orig_query); 
       
       // hide content and show a preloader while the new search runs
