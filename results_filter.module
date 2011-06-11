@@ -91,16 +91,11 @@ function results_filter_preprocess_search_results(&$variables) {
   $start = number_format(10*$currentPage-9);
   $end = number_format($itemsPerPage * $currentPage);
   if ($end>$total) $end = $total;
-    
-  // set this html to the $variables
-  $variables['results_filter_search_totals'] = t("Displaying $start - $end of $total results for <strong>$keys</strong>");
 
-  // Check the URL to see if we're viewing a results page or a filtered results page.
-  // Use this to decide whether to show the filter selector or the Reset link.
-    
+  // Check the URL to see if we're viewing a results page or a filtered results page. 
   $uri = ($_SERVER['REQUEST_URI']); // look at the URL  
-  $match = '%';
-  $pos = strpos($uri, $match); // check it for a percentage sign - that indicates a filtered search has run
+  $match = 'type%';
+  $pos = strpos($uri, $match); // check it for "type%" - that indicates a filtered search has run
 
   // show the filter options if it's the intial search; show a reset link if the filter has already run
   // pass this to search-results.tpl.php as a variable
@@ -108,8 +103,13 @@ function results_filter_preprocess_search_results(&$variables) {
     $variables['results_filter_search_tools']  = '<p>' . t('Filter by type:');
     $variables['results_filter_search_tools'] .= '<select id="types"><option value="all">' . t('Show all') . '</option></select></p>'; 
   } else {
-    $variables['results_filter_search_tools']  = '<p id="reset">' . t('Show all') . '</p>'; 
-  } 
+    $variables['results_filter_search_tools']  = '<p id="reset">' . t('Show all') . '</p>';
+    // Clean up the search query so the output is more readable
+    $keys = str_replace('_', ' ', $keys);
+    $keys = str_replace('type:', '<br />Type: ', $keys); 
+  }
+
+   // set this html to the $variables
+  $variables['results_filter_search_totals'] = t("Displaying $start - $end of $total results for <strong>$keys</strong>"); 
 
 }
-
