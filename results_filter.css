@@ -6,3 +6,11 @@
   top: 100;
   left: 0;
 }
+select#types {
+  margin-left: 6px;
+  text-transform: capitalize;
+}
+#reset {
+  cursor: pointer;
+}
+
