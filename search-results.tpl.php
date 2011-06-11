@@ -33,3 +33,7 @@
   <?php print $search_results; ?>
 </dl>
 <?php print $pager; ?>
+
+<?php drupal_add_css(drupal_get_path('module', 'results_filter') . '/results_filter.css'); ?>
+<?php drupal_add_js(drupal_get_path('module', 'results_filter')  . '/results_filter.js'); ?>
+

@@ -3,8 +3,8 @@
  * Results filter module
  *
  * This module AJAXifys the Drupal core search form and adds
- * a filter to the results that allows the user to filter by 
- * content type.
+ * a filter to the results template that allows the user to 
+ * filter the results by content type.
  *
  * @author Sarah German
  * @version 1.0
@@ -27,32 +27,6 @@ function results_filter_help($path, $arg) {
 }
 
 /**
-  * Implementation of hook_init().
-  * Add CSS and JS to the search page.
-*/
-function results_filter_init() {
-  $path = drupal_get_path('module', 'results_filter');
-  
-  if (arg(0) == 'search') {    
-     
-    drupal_add_css($path . '/results_filter.css');    
-
-    // only load the JS if it's a results page
-    if (arg(2)) { 
-      
-      // pass the filter array over to JS on the results page
-      /** drupal_add_js(array(
-        'results_filter' => array(
-          'filters' => results_filter_filters(), // TODO: the array in the to-do above 
-        )
-      ), 'setting');**/
-
-      drupal_add_js($path . '/results_filter.js');
-    }
-  }
-}
-
-/**
  * Implemenation of hook_form_alter().
  * AJAXify the search form. See http://drupal.org/node/349961
  */
@@ -64,7 +38,6 @@ function results_filter_form_alter(&$form, $form_state, $form_id) {
     );
     break;
   }
-
 }
 
 /**
@@ -130,6 +103,7 @@ function results_filter_preprocess_search_results(&$variables) {
   $pos = strpos($uri, $match); // check it for a percentage sign - that indicates a filtered search has run
 
   // show the filter options if it's the intial search; show a reset link if the filter has already run
+  // pass this to search-results.tpl.php as a variable
   if ($pos === false) {
     $variables['results_filter_search_tools']  = '<p>' . t('Filter by type:');
     $variables['results_filter_search_tools'] .= '<select id="types"><option value="all">' . t('Show all') . '</option></select></p>'; 
