@@ -103,7 +103,7 @@ function results_filter_preprocess_search_results(&$variables) {
     $variables['results_filter_search_tools']  = '<p>' . t('Filter by type:');
     $variables['results_filter_search_tools'] .= '<select id="types"><option value="all">' . t('Show all') . '</option></select></p>'; 
   } else {
-    $variables['results_filter_search_tools']  = '<p id="reset">' . t('Show all') . '</p>';
+    $variables['results_filter_search_tools']  = '<p id="reset"><a href="#">' . t('Show all') . '</a></p>';
     // Clean up the search query so the output is more readable
     $keys = str_replace('_', ' ', $keys);
     $keys = str_replace('type:', '<br />Type: ', $keys); 

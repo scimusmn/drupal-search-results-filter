@@ -1,5 +1,6 @@
 Drupal.behaviors.results_filterBehavior = function (context) {
 
+
   // create an array for class names
   var types = [];
 
@@ -22,7 +23,7 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   var options = '';
   $.each(links, function(index, value) {   
     var label = value.replace("_", " "); // convert underscores to spaces for the link text
-    options += '<option value="'+ value +'">' + label + '</option>'; // markup for the link
+    options += '<option value="'+ value +'">' + label + '</option>'; // markup for the filter options
   }); 
   $(options).appendTo('#types'); // put the options into the select list
 
@@ -45,8 +46,10 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   // check if the search has already been filtered
   // activate the reset link if that's true
   if ($('#reset').length) {
-    $('#reset').live('click', function() {    
+    $('#reset a').live('click', function(e) {    
       
+      e.preventDefault(); // prevent default link behavior
+
       // Remove the type:* string from the advanced search
       $adv_query = $('input#edit-keys').val();
       query_regex = /.*type:/;
