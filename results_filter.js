@@ -46,10 +46,8 @@ Drupal.behaviors.results_filterBehavior = function (context) {
   // check if the search has already been filtered
   // activate the reset link if that's true
   if ($('#reset').length) {
-    $('#reset a').live('click', function(e) {    
+    $('#reset a').live('click', function() {    
       
-      e.preventDefault(); // prevent default link behavior
-
       // Remove the type:* string from the advanced search
       $adv_query = $('input#edit-keys').val();
       query_regex = /.*type:/;
@@ -66,6 +64,8 @@ Drupal.behaviors.results_filterBehavior = function (context) {
       $('#search-form').submit(); // submit the form with the new query
       $('#edit-submit').attr('disabled', 'disabled'); // disable the button while the results load
     
+      return false;
+
     });
   }
 
